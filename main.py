@@ -34,3 +34,11 @@ plt.annotate("<--- portofolio yang memiliki nilai variansi terkecil", (coeffs['b
 
 plt.grid()
 plt.show()
+
+'''Optimisasi Portofolio dengan Target Return'''
+rp = 1.0024
+x = functions.optimize(mu, C, rp)
+print(f"Proporsi portofolio yang optimal adalah {x[0][0]} saham ITMG, {x[1][0]} saham BMRI, "
+      f"{x[2][0]} saham PTBA, {x[3][0]} saham ICBP"
+      f",dan {x[4][0]} saham UNTR.")
+

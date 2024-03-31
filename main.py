@@ -19,19 +19,33 @@ dan kovariansi antar-saham apa yang terdapat pada matrix C, dapat dilihat secara
 """
 
 coeffs = functions.PF_EFMVcoeff(mu, C)  # Mendapatkan koefisien-koefisien yg dibutuhkan.
-real = functions.PF_EFMVplot(0, 0.5, 50, coeffs['alpha0'],
-                             coeffs['alpha1'], coeffs['beta0'], coeffs['beta2'])  # Mendapatkan array untuk plotting
+ret_var = functions.PF_EFMVplot(0, 0.5, 50, coeffs['alpha0'],
+                                coeffs['alpha1'], coeffs['beta0'], coeffs['beta2'])  # Mendapatkan array untuk plotting
 
-'''Di bawah ini adalah codingan untuk plotting Efficient Frontier Line dari Portofolio 5 Saham.'''
-plt.title("Grafik Efficient Frontier Line Portofolio 5 Saham")
+'''Plotting Return vs Variance Efficient Frontier Line dari Portofolio 5 Saham.'''
+plt.title("Grafik Efficient Frontier Return vs Variance Line Portofolio 5 Saham")
 plt.xlabel("Variansi Portofolio")
 plt.ylabel("Return Portofolio")
 
-plt.plot(real["sigma2p"][0], real["mup"][0])  # Mu_P atas
-plt.plot(real["sigma2p"][0], real["mup_bawah"][0], linestyle='dashed')  # Mu_P bawah
+plt.plot(ret_var["sigma2p"][0], ret_var["mup"][0])  # Mu_P atas
+plt.plot(ret_var["sigma2p"][0], ret_var["mup_bawah"][0], linestyle='dashed')  # Mu_P bawah
 plt.plot(coeffs['beta0'], coeffs['alpha0'], "o", color="black")  # titik dengan variansi terendah
 plt.annotate("<--- portofolio yang memiliki nilai variansi terkecil", (coeffs['beta0'], coeffs['alpha0']))
 
+plt.grid()
+plt.show()
+
+'''Plotting Return vs Std. Dev Efficient Frontier Line dari Portofolio 5 Saham'''
+ret_std = functions.PF_EFMSDplot(0, 0.5, 50, coeffs['alpha0'],
+                                 coeffs['alpha1'], coeffs['beta0'], coeffs['beta2'])
+plt.title("Grafik Efficient Frontier Return vs Std Deviation Line Portofolio 5 Saham")
+plt.xlabel("Std Dev Portofolio")
+plt.ylabel("Return Portofolio")
+
+plt.plot(ret_std["stdvp"][0], ret_std["mup"][0])  # Mu_P atas
+plt.plot(ret_std["stdvp"][0], ret_std["mup_bawah"][0], linestyle='dashed')  # Mu_P bawah
+plt.plot(coeffs['beta0']**0.5 , coeffs['alpha0'], "o", color="black")  # titik dengan std dev terendah
+plt.annotate("<--- portofolio yang memiliki nilai std dev terkecil", (coeffs['beta0']**0.5, coeffs['alpha0']))
 plt.grid()
 plt.show()
 

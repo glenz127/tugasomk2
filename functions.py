@@ -1,6 +1,7 @@
 import numpy as np
 
 
+
 def PF_EFMVcoeff(mu, C):
     """
     Fungsi ini mengambil array ekspektasi return dari masing-masing saham beserta matrix variansi kovariansi
